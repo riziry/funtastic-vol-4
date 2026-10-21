@@ -35,8 +35,9 @@ Fees, participants, key rules and registration requirements shown on the site ar
 
 ### Gallery
 
-Browsers can't display HEIC/MOV, so the Vol. 3 originals in `public/assets/dokumentasi-vol-3/` were converted
-into `public/gallery/vol-3/` (JPG max 1920px, MP4 H.264 720p + poster frames). To add new ones:
+The original Vol. 3 HEIC/MOV files live on Google Drive (not in this repo — browsers can't display them and they
+weighed 238 MB). The site uses web-optimized copies in `public/gallery/vol-3/` (JPG max 1920px, MP4 H.264 720p +
+poster frames). To add new ones, download the original from Drive and convert it:
 
 ```bash
 vips thumbnail IMG_1234.HEIC public/gallery/vol-3/img_1234.jpg[Q=80,strip] 1920 --size down
