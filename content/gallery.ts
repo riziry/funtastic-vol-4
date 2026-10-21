@@ -17,7 +17,6 @@
  */
 import type { StaticImageData } from "next/image";
 
-import img6235 from "@/public/gallery/vol-3/img_6235.jpg";
 import img6250 from "@/public/gallery/vol-3/img_6250.jpg";
 import img6251 from "@/public/gallery/vol-3/img_6251.jpg";
 import img6257 from "@/public/gallery/vol-3/img_6257.jpg";
@@ -95,14 +94,6 @@ export const galleryItems: GalleryItem[] = [
     caption: "The line-up before kickoff",
     year: VOL3,
     layout: "wide",
-  },
-  {
-    id: "vol3-6235",
-    image: img6235,
-    alt: "Committee members in purple shirts playfully posing on the court",
-    caption: "Committee spirit",
-    year: VOL3,
-    layout: "tall",
   },
   {
     id: "vol3-6415",
