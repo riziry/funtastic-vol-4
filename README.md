@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Funtastic Vol. 4 — Magical School Carnival
 
-## Getting Started
-
-First, run the development server:
+Single-page event showcase built with Next.js 16 (App Router), Tailwind CSS 4, Motion and Lucide.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Updating content (no layout code needed)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | Where |
+| --- | --- |
+| Event name, headline, intro, **dates (month/year)**, site URL | `content/event.ts` → `event` |
+| Welcome letter copy & highlights | `content/event.ts` → `welcomeLetter` |
+| Competitions (participants / fee / schedule / key rules) | `content/event.ts` → `competitions` — leave a detail `null` until confirmed |
+| Day-by-day programme | `content/event.ts` → `schedule` |
+| Contact persons & phone numbers | `content/event.ts` → `contacts` |
+| Payment account | `content/event.ts` → `payment` |
+| Registration form link (used by every CTA) | `content/event.ts` → `REGISTRATION_URL` |
+| Gallery photos & videos | `content/gallery.ts` |
+| Logos | `public/brand/` (transparent PNG cutouts of the files in `public/assets/`) |
+| Social share image | `public/og-image.jpg` (1200×630) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Guidebook
 
-## Learn More
+The official PDF lives at `public/assets/GUIDEBOOK LOMBA FUNTASTIC VOL 4.pdf` (path set in
+`content/event.ts` → `guidebook.path`). Replace the file and rebuild to update it. If the file is missing, the site
+shows a "Guidebook coming soon" state instead of a broken link.
 
-To learn more about Next.js, take a look at the following resources:
+Fees, participants, key rules and registration requirements shown on the site are summarised from this guidebook
+(`competitions` and `registration` in `content/event.ts`) — update both together.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Gallery
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Browsers can't display HEIC/MOV, so the Vol. 3 originals in `public/assets/dokumentasi-vol-3/` were converted
+into `public/gallery/vol-3/` (JPG max 1920px, MP4 H.264 720p + poster frames). To add new ones:
 
-## Deploy on Vercel
+```bash
+vips thumbnail IMG_1234.HEIC public/gallery/vol-3/img_1234.jpg[Q=80,strip] 1920 --size down
+ffmpeg -i IMG_1234.MOV -vf "scale=-2:1280,format=yuv420p" -c:v libx264 -crf 27 -movflags +faststart -c:a aac -b:a 96k public/gallery/vol-3/img_1234.mp4
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Then import the file in `content/gallery.ts` and add an entry.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Open items for organizers
+
+- Aurel's number `+62 813-9551-787` has one fewer digit than the others (same in the guidebook) — please confirm
+- The guidebook defines "WO" as "Walk-in / biaya tambahan…" followed by an editing note that looks unintended;
+  the rules (no. 7 & 12) treat it as a refundable deposit. Worth clarifying in the PDF
+- `event.siteUrl` after deployment (used for Open Graph links)
