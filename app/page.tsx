@@ -11,6 +11,7 @@ import { Hero } from "@/components/hero";
 import { Navbar } from "@/components/navbar";
 import { Payment } from "@/components/payment";
 import { SparkleLayer } from "@/components/sparkle-layer";
+import { MobileCta } from "@/components/mobile-cta";
 import { SectionHeading } from "@/components/ui";
 import { event, formatEventDate } from "@/content/event";
 
@@ -26,13 +27,15 @@ export default function Home() {
         Skip to content
       </a>
       <CurtainIntro />
+      <div aria-hidden className="scroll-progress" />
       <SparkleLayer />
       <Navbar />
       <main>
         <Hero />
         <Marquee items={marqueeItems} />
         <About />
-        <section id="gallery" aria-labelledby="gallery-title" className="relative py-24 sm:py-32">
+        <section id="gallery" aria-labelledby="gallery-title" className="relative py-20 sm:py-32">
+          <div aria-hidden className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,transparent,rgb(37_99_235/0.14)_25%,rgb(37_99_235/0.14)_75%,transparent)]" />
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <SectionHeading
               id="gallery-title"
@@ -51,6 +54,7 @@ export default function Home() {
         <FinalCta />
       </main>
       <Footer />
+      <MobileCta />
     </>
   );
 }

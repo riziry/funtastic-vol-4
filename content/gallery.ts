@@ -85,7 +85,7 @@ export const galleryItems: GalleryItem[] = [
     alt: "Students taking a group selfie in front of the Funtastic Vol. 3 stage banner",
     caption: "One more selfie before the show",
     year: VOL3,
-    layout: "normal",
+    layout: "wide",
   },
   {
     id: "vol3-6407",
@@ -100,7 +100,7 @@ export const galleryItems: GalleryItem[] = [
     image: img6415,
     alt: "A futsal team in red and navy jerseys posing with their coach",
     year: VOL3,
-    layout: "normal",
+    layout: "wide",
   },
   {
     id: "vol3-9781",
@@ -205,4 +205,8 @@ export const galleryItems: GalleryItem[] = [
 ];
 
 /** How many tiles to show before the "Show more" button. */
-export const GALLERY_INITIAL_COUNT = 20;
+/**
+ * Phones show this many tiles until "Show all" is tapped (desktop shows all).
+ * 9 keeps the 2-column grid free of holes with the current layouts.
+ */
+export const GALLERY_INITIAL_COUNT = 9;

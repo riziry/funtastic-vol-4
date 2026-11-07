@@ -38,7 +38,7 @@ export function Payment() {
   const onCopy = async () => setStatus((await copyText(payment.accountNumber)) ? "copied" : "error");
 
   return (
-    <section id="payment" aria-labelledby="payment-title" className="relative py-24 sm:py-32">
+    <section id="payment" aria-labelledby="payment-title" className="relative py-20 sm:py-32">
       <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(50%_45%_at_50%_55%,rgb(214_180_106/0.12),transparent_70%)]" />
       <FloatingMagic
         items={[
@@ -56,9 +56,10 @@ export function Payment() {
           description="Transfer details for registration payments."
         />
 
-        <div className="parchment relative overflow-hidden rounded-2xl px-6 py-10 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] sm:px-12 sm:py-12">
+        <div className="relative">
+          <WaxSeal className="pointer-events-none absolute -top-5 -right-1 z-10 size-24 drop-shadow-[0_6px_10px_rgb(0_0_0/0.35)] sm:-right-5 sm:size-28" />
+          <div className="parchment relative overflow-hidden rounded-2xl px-6 py-10 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.9)] sm:px-12 sm:py-12">
           <Corners className="text-crimson/45" />
-          <WaxSeal className="absolute -top-5 -right-5 size-24 opacity-90 sm:size-28" />
 
           <div className="flex items-center gap-3 pr-16">
             <span className="grid size-12 place-items-center rounded-full bg-crimson text-ivory">
@@ -113,7 +114,7 @@ export function Payment() {
                   {competitions
                     .filter((c) => c.details.fee)
                     .map((c) => (
-                      <li key={c.id} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-2.5">
+                      <li key={c.id} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 px-4 py-2.5 transition-[background-color,padding] duration-300 hover:bg-ivory/70 hover:pl-6">
                         <span className="font-semibold text-ink">{c.name}</span>
                         <span className="font-mono font-bold text-crimson">{c.details.fee}</span>
                       </li>
@@ -135,6 +136,7 @@ export function Payment() {
               looks different from what the organizers shared with you, confirm with a coordinator first.
             </span>
           </p>
+          </div>
         </div>
       </div>
     </section>

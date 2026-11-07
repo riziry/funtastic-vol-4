@@ -2,7 +2,6 @@ import {
   CalendarRange,
   Check,
   FileText,
-  GraduationCap,
   ScrollText,
   Ticket,
   UserRound,
@@ -28,8 +27,8 @@ const accents: Record<
   { glow: string; emblem: string; numeral: string }
 > = {
   futsal: {
-    glow: "bg-[radial-gradient(80%_60%_at_50%_0%,rgb(200_50_74/0.45),transparent_70%)]",
-    emblem: "text-[#f08a9b]",
+    glow: "bg-[radial-gradient(80%_60%_at_50%_0%,rgb(73_132_235/0.45),transparent_70%)]",
+    emblem: "text-[#88b9f2]",
     numeral: "I",
   },
   tka: {
@@ -62,7 +61,7 @@ function CompetitionCard({
   index: number;
 }) {
   const accent = accents[competition.id];
-  const [student, teacher] = contacts[competition.id];
+  const [student] = contacts[competition.id];
   const filled = details.filter(({ key }) => competition.details[key]);
 
   return (
@@ -103,18 +102,6 @@ function CompetitionCard({
                   Coordinator
                 </dt>
                 <dd className="font-semibold text-ivory">{student.name}</dd>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <GraduationCap
-                aria-hidden
-                className="mt-0.5 size-4 shrink-0 text-gold"
-              />
-              <div>
-                <dt className="text-xs font-bold tracking-[0.18em] text-ivory/55 uppercase">
-                  Teacher coordinator
-                </dt>
-                <dd className="font-semibold text-ivory">{teacher.name}</dd>
               </div>
             </div>
             {filled.map(({ key, label, icon: Icon }) => (
@@ -287,7 +274,7 @@ export function Competitions() {
     <section
       id="competitions"
       aria-labelledby="competitions-title"
-      className="relative py-24 sm:py-32"
+      className="relative py-20 sm:py-32"
     >
       <Bunting className="top-4" flags={22} />
       <FloatingMagic
@@ -300,7 +287,7 @@ export function Competitions() {
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,transparent,rgb(54_10_22/0.6)_40%,transparent)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,transparent,rgb(11_45_102/0.6)_40%,transparent)]"
       />
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading

@@ -40,7 +40,7 @@ export function HatAndWand() {
   const stars = [
     { sx: "-50px", sy: "-130px", d: "0s", c: "text-gold-light" },
     { sx: "10px", sy: "-160px", d: "-0.8s", c: "text-ivory" },
-    { sx: "60px", sy: "-120px", d: "-1.6s", c: "text-[#f08a9b]" },
+    { sx: "60px", sy: "-120px", d: "-1.6s", c: "text-[#88b9f2]" },
     { sx: "-20px", sy: "-100px", d: "-2.4s", c: "text-gold" },
   ];
   return (
@@ -63,35 +63,56 @@ export function HatAndWand() {
         <Wand className="w-full drop-shadow-[0_0_16px_rgb(236_213_156/0.5)]" />
         <Star4 className="absolute top-[8%] right-[6%] size-5 animate-twinkle text-gold-light" />
         <Star4 className="absolute top-[26%] right-[-6%] size-3 animate-twinkle text-ivory [animation-delay:-1s]" />
-        <Star4 className="absolute top-[-4%] right-[22%] size-3.5 animate-twinkle text-[#f08a9b] [animation-delay:-1.7s]" />
+        <Star4 className="absolute top-[-4%] right-[22%] size-3.5 animate-twinkle text-[#88b9f2] [animation-delay:-1.7s]" />
       </div>
     </div>
   );
 }
 
-/** A swaying garland of carnival pennants. */
+/**
+ * A swaying garland of carnival pennants. The string stretches to any width,
+ * while each pennant keeps a fixed, undistorted size and hangs from the curve.
+ * On small screens every other pennant is hidden so they never crowd.
+ */
 export function Bunting({ className = "", flags = 18 }: { className?: string; flags?: number }) {
-  const colors = ["#a61b32", "#d6b46a", "#f4e9d5", "#7f1026", "#3b1a4a"];
-  const w = 1440 / flags;
+  const colors = ["#185fda", "#d6b46a", "#f4e9d5", "#3b82f6", "#ecd59c"];
+  // String: quadratic curve from (0, 6) via (50%, 66) to (100%, 6) in a 0–100 box.
+  const sagAt = (t: number) => 6 + 120 * t * (1 - t);
   return (
-    <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-0 h-16 overflow-hidden sm:h-20 ${className}`}>
-      <svg viewBox="0 0 1440 90" preserveAspectRatio="none" className="size-full">
-        <path d="M0 8 Q720 46 1440 8" fill="none" stroke="#d6b46a" strokeOpacity=".7" strokeWidth="2" />
-        {Array.from({ length: flags }, (_, i) => {
-          const x = i * w + w / 2;
-          const t = x / 1440;
-          const y = 8 + 4 * 38 * t * (1 - t);
-          return (
-            <g key={i} transform={`translate(${x} ${y})`}>
-              <g className="animate-sway" style={{ transformBox: "fill-box", transformOrigin: "50% 0", animationDelay: `${-(i % 5) * 0.6}s` }}>
-                <path d={`M${-w * 0.36} 0 L${w * 0.36} 0 L0 ${w * 0.7}z`} fill={colors[i % colors.length]} />
-                <path d={`M${-w * 0.36} 0 L${w * 0.36} 0`} stroke="#ecd59c" strokeOpacity=".6" />
-                <circle cy={w * 0.22} r="3" fill={i % colors.length === 1 ? "#7f1026" : "#ecd59c"} opacity=".8" />
-              </g>
-            </g>
-          );
-        })}
+    <div aria-hidden className={`pointer-events-none absolute inset-x-0 top-0 h-24 overflow-x-clip sm:h-28 ${className}`}>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 size-full">
+        <path
+          d="M0 6 Q50 66 100 6"
+          fill="none"
+          stroke="#ecd59c"
+          strokeOpacity=".75"
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+        />
       </svg>
+      {Array.from({ length: flags }, (_, i) => {
+        const t = (i + 0.5) / flags;
+        const color = colors[i % colors.length];
+        const light = color === "#f4e9d5" || color === "#ecd59c" || color === "#d6b46a";
+        return (
+          <div
+            key={i}
+            className={`absolute -translate-x-1/2 ${i % 2 === 1 ? "max-sm:hidden" : ""}`}
+            style={{ left: `${t * 100}%`, top: `calc(${sagAt(t)}% - 1px)` }}
+          >
+            <svg
+              viewBox="0 0 30 40"
+              className="block h-9 w-7 animate-sway sm:h-11 sm:w-8"
+              style={{ transformOrigin: "50% 0", animationDelay: `${-(i % 5) * 0.6}s` }}
+            >
+              <path d="M1 1h28L15 39z" fill={color} />
+              <path d="M1 1h28L15 39z" fill="none" stroke="#0b2d66" strokeOpacity=".35" strokeWidth="1" />
+              <path d="M1 1.5h28" stroke="#ecd59c" strokeWidth="2.5" strokeLinecap="round" />
+              <circle cx="15" cy="12" r="3" fill={light ? "#185fda" : "#ecd59c"} opacity=".85" />
+            </svg>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -99,13 +120,15 @@ export function Bunting({ className = "", flags = 18 }: { className?: string; fl
 /** Tilted, endlessly scrolling marquee band. */
 export function Marquee({ items, reverse = false, tilt = "-rotate-2" }: { items: string[]; reverse?: boolean; tilt?: string }) {
   const icons = [Star4, TopHat, Wand];
+  // Each half of the loop holds the list twice so it is always wider than the screen.
+  const loop = [...items, ...items];
   const row = (
     <div className="flex shrink-0 items-center">
-      {items.map((item, i) => {
+      {loop.map((item, i) => {
         const Icon = icons[i % icons.length];
         return (
           <Fragment key={i}>
-            <span className="px-6 font-display text-xl font-bold tracking-[0.18em] whitespace-nowrap text-ivory uppercase sm:text-2xl">
+            <span className="px-6 font-display text-xl leading-none font-bold tracking-[0.18em] whitespace-nowrap text-ivory uppercase sm:px-8 sm:text-2xl">
               {item}
             </span>
             <Icon className="size-6 shrink-0 text-gold-light sm:size-7" />
@@ -115,9 +138,15 @@ export function Marquee({ items, reverse = false, tilt = "-rotate-2" }: { items:
     </div>
   );
   return (
-    <div aria-hidden className="relative z-10 overflow-hidden py-6">
-      <div className={`-mx-[5%] overflow-hidden border-y-2 border-gold/70 bg-gradient-to-r from-crimson via-blood to-crimson py-3 shadow-[0_10px_40px_-10px_rgb(166_27_50/0.7)] ${tilt}`}>
-        <div className={`flex w-max animate-marquee ${reverse ? "[animation-direction:reverse]" : ""}`}>
+    // Clip only horizontally so the tilted band's corners are never cut off;
+    // vertical padding scales with width to fit the tilt on wide screens.
+    <div aria-hidden className="relative z-10 overflow-x-clip py-[max(1.5rem,2.5vw)]">
+      <div
+        className={`-mx-[5%] overflow-hidden border-y-2 border-gold/70 bg-gradient-to-r from-crimson via-blood to-crimson py-4 shadow-[0_10px_40px_-10px_rgb(24_95_218/0.7)] ${tilt}`}
+      >
+        <div
+          className={`flex w-max animate-marquee [animation-duration:70s] ${reverse ? "[animation-direction:reverse]" : ""}`}
+        >
           {row}
           {row}
         </div>
@@ -140,7 +169,7 @@ const FIREWORK_SHADOW = (() => {
 export function Fireworks() {
   const bursts = [
     { left: "14%", top: "22%", color: "#ecd59c", delay: "0s" },
-    { left: "84%", top: "18%", color: "#f08a9b", delay: "-0.9s" },
+    { left: "84%", top: "18%", color: "#88b9f2", delay: "-0.9s" },
     { left: "72%", top: "70%", color: "#fff6dc", delay: "-1.7s" },
     { left: "24%", top: "74%", color: "#b58be0", delay: "-2.3s" },
     { left: "50%", top: "10%", color: "#d6b46a", delay: "-1.2s" },

@@ -81,6 +81,7 @@ export const navItems = [
   { id: "competitions", label: "Competitions" },
   { id: "guidebook", label: "Guidebook" },
   { id: "contact", label: "Contact" },
+  { id: "payment", label: "Payment" },
 ] as const;
 
 export type CompetitionId = "futsal" | "tka" | "mewarnai";
@@ -163,7 +164,6 @@ export type Contact = {
 export const contacts: Record<CompetitionId, Contact[]> = {
   futsal: [
     { name: "Herjuno", role: "Koor Futsal", phone: "+62 857-8282-7416" },
-    { name: "Pak Janavin", role: "Koor Futsal Guru", phone: "+62 858-5321-0580" },
   ],
   tka: [
     {
@@ -175,11 +175,9 @@ export const contacts: Record<CompetitionId, Contact[]> = {
       // confirm with Aurel and update (then remove `needsConfirmation`).
       needsConfirmation: "Number pending confirmation",
     },
-    { name: "Ms Diana", role: "Koor Try Out TKA Guru", phone: "+62 851-6130-7975" },
   ],
   mewarnai: [
     { name: "Aqila", role: "Koor Mewarnai", phone: "+62 813-9897-6414" },
-    { name: "Pak Raihan", role: "Koor Mewarnai Guru", phone: "+62 813-8703-1610" },
   ],
 };
 

@@ -23,7 +23,7 @@ const sizes: Record<GalleryLayout, string> = {
 export function GalleryGrid() {
   const [expanded, setExpanded] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const visible = expanded ? galleryItems : galleryItems.slice(0, GALLERY_INITIAL_COUNT);
+  const hasMore = galleryItems.length > GALLERY_INITIAL_COUNT;
 
   if (galleryItems.length === 0) {
     return (
@@ -36,12 +36,15 @@ export function GalleryGrid() {
   return (
     <>
       <ul className="grid grid-flow-dense auto-rows-[9.5rem] grid-cols-2 gap-2.5 sm:auto-rows-[12rem] sm:gap-3 md:grid-cols-4 lg:auto-rows-[13.5rem]">
-        {visible.map((item, index) => (
-          <li key={item.id} className={spans[item.layout]}>
+        {galleryItems.map((item, index) => (
+          <li
+            key={item.id}
+            className={`${spans[item.layout]} ${!expanded && index >= GALLERY_INITIAL_COUNT ? "max-md:hidden" : ""}`}
+          >
             <button
               type="button"
               onClick={() => setOpenIndex(index)}
-              className="group relative block size-full overflow-hidden rounded-lg border border-gold/15 bg-burgundy text-left transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-[0_20px_50px_-20px_rgb(166_27_50/0.8)]"
+              className="group relative block size-full overflow-hidden rounded-lg border border-gold/15 bg-burgundy text-left sweep transition-[border-color,box-shadow] duration-500 hover:border-gold/60 hover:shadow-[0_20px_50px_-20px_rgb(24_95_218/0.8)]"
             >
               <Image
                 src={item.image}
@@ -77,8 +80,8 @@ export function GalleryGrid() {
         ))}
       </ul>
 
-      {galleryItems.length > GALLERY_INITIAL_COUNT ? (
-        <div className="mt-10 flex justify-center">
+      {hasMore ? (
+        <div className="mt-10 flex justify-center md:hidden">
           <button type="button" onClick={() => setExpanded((v) => !v)} className="btn btn-ghost" aria-expanded={expanded}>
             {expanded ? "Show fewer memories" : `Show all ${galleryItems.length} memories`}
           </button>
@@ -86,7 +89,7 @@ export function GalleryGrid() {
       ) : null}
 
       <Lightbox
-        items={visible}
+        items={galleryItems}
         index={openIndex}
         onClose={() => setOpenIndex(null)}
         onNavigate={setOpenIndex}

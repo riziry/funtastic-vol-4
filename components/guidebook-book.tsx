@@ -21,7 +21,7 @@ function BookCover({ open }: { open: boolean }) {
       </div>
       {/* cover */}
       <motion.div
-        className="absolute inset-0 origin-left rounded-md border border-gold/60 bg-[linear-gradient(135deg,#8c1229,#4a0716_60%,#2a0510)] shadow-[0_30px_60px_-20px_rgb(0_0_0/0.9)] [backface-visibility:hidden] [transform-style:preserve-3d]"
+        className="absolute inset-0 origin-left rounded-md border border-gold/60 bg-[linear-gradient(135deg,#144fb6,#0c367e_60%,#143672)] shadow-[0_30px_60px_-20px_rgb(0_0_0/0.9)] [backface-visibility:hidden] [transform-style:preserve-3d]"
         animate={{ rotateY: open ? -150 : 0 }}
         transition={{ duration: 1.1, ease: [0.65, 0, 0.35, 1] }}
       >
@@ -92,7 +92,7 @@ export function GuidebookBook({ available, path, fileName }: Props) {
             </div>
           </>
         ) : (
-          <div className="gold-frame velvet relative w-full rounded-2xl px-6 py-8 sm:px-8">
+          <div className="lift gold-frame velvet relative w-full rounded-2xl px-6 py-8 sm:px-8">
             <Corners />
             <div className="flex items-center gap-3 text-gold-light">
               <Hourglass aria-hidden className="size-6" />

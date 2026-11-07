@@ -93,15 +93,15 @@ export function Navbar() {
               <a
                 href={`#${item.id}`}
                 aria-current={active === item.id ? "true" : undefined}
-                className={`relative rounded-full px-4 py-2 text-sm font-semibold tracking-wide transition-colors ${
-                  active === item.id ? "text-gold-light" : "text-ivory/75 hover:text-ivory"
+                className={`relative rounded-full px-3 py-2 text-sm xl:px-4 font-semibold tracking-wide transition-colors ${
+                  active === item.id ? "text-gold-light" : "text-ivory/75 hover:bg-gold/10 hover:text-ivory"
                 }`}
               >
                 {item.label}
                 {active === item.id ? (
                   <motion.span
                     layoutId="nav-underline"
-                    className="absolute inset-x-4 -bottom-0.5 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
+                    className="absolute inset-x-3 -bottom-0.5 xl:inset-x-4 h-px bg-gradient-to-r from-transparent via-gold to-transparent"
                   />
                 ) : null}
               </a>

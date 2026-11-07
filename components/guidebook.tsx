@@ -10,7 +10,7 @@ export function Guidebook() {
   const available = existsSync(path.join(process.cwd(), "public", guidebook.path));
 
   return (
-    <section id="guidebook" aria-labelledby="guidebook-title" className="relative overflow-hidden py-24 sm:py-32">
+    <section id="guidebook" aria-labelledby="guidebook-title" className="relative overflow-hidden py-20 sm:py-32">
       <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(50%_50%_at_30%_50%,rgb(59_26_74/0.45),transparent_70%)]" />
       <FloatingMagic
         items={[

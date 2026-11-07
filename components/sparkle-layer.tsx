@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 const BURST_EVENT = "funtastic:burst";
-const COLORS = ["#ecd59c", "#d6b46a", "#fff6dc", "#c8324a", "#a61b32", "#f4e9d5", "#b58be0"];
+const COLORS = ["#ecd59c", "#d6b46a", "#fff6dc", "#4984eb", "#185fda", "#f4e9d5", "#b58be0"];
 
 /** Fire a confetti + star burst at viewport coordinates. */
 export function burst(x: number, y: number, count = 40) {

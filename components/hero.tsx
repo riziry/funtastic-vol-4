@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { CalendarDays, ChevronDown, MapPin } from "lucide-react";
 import { event, formatEventDate, isEventDateComplete, logos } from "@/content/event";
@@ -9,6 +9,21 @@ import { FloatingCandles, Sparks } from "./atmosphere";
 import { HatAndWand, MagicSky } from "./carnival-decor";
 import { Castle, Hills, RuneRing } from "./castle";
 import { RegisterButton } from "./ui";
+
+const DESKTOP_QUERY = "(min-width: 1024px)";
+
+/** True on large screens, where the hero content fits in one viewport. */
+function useIsDesktop() {
+  return useSyncExternalStore(
+    (onChange) => {
+      const mql = window.matchMedia(DESKTOP_QUERY);
+      mql.addEventListener("change", onChange);
+      return () => mql.removeEventListener("change", onChange);
+    },
+    () => window.matchMedia(DESKTOP_QUERY).matches,
+    () => false,
+  );
+}
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -18,6 +33,9 @@ export function Hero() {
   const castleY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
   const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  // On phones the hero is taller than the screen, so fading/shifting the content
+  // would hide the Register button before it can be tapped. Desktop only.
+  const isDesktop = useIsDesktop();
 
   return (
     <section
@@ -28,10 +46,10 @@ export function Hero() {
     >
       {/* Sky */}
       <motion.div style={{ y: skyY }} className="absolute inset-0 -z-30">
-        <div className="absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_0%,#5a0f22_0%,#2a0a16_45%,#140d12_80%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_0%,#11449b_0%,#203e71_45%,#172c50_80%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(40%_35%_at_80%_20%,rgb(59_26_74/0.55),transparent_70%)]" />
         {/* Moon */}
-        <div className="absolute top-[12%] left-[62%] size-40 rounded-full bg-[radial-gradient(circle_at_40%_40%,#fff4dc,#ecd59c_45%,#a8853f_80%)] opacity-80 shadow-[0_0_120px_40px_rgb(236_213_156/0.25)] sm:size-56" />
+        <div className="absolute top-[7%] right-[5%] size-24 rounded-full bg-[radial-gradient(circle_at_38%_36%,#ffffff,#eaf2ff_40%,#a9c8ff_78%,#7aa7f0_100%)] opacity-90 shadow-[0_0_90px_30px_rgb(169_200_255/0.35)] sm:size-32 lg:top-[11%] lg:right-auto lg:left-[44%] lg:size-36" />
       </motion.div>
 
       <FloatingCandles className="-z-20 hidden opacity-90 sm:block" />
@@ -42,18 +60,18 @@ export function Hero() {
       <motion.div style={{ y: hillsY }} className="absolute inset-x-0 bottom-0 -z-20 h-[34%] sm:h-[55%]">
         <Hills className="absolute inset-0 size-full" />
       </motion.div>
-      <motion.div style={{ y: castleY }} className="absolute inset-x-0 bottom-0 -z-10 h-[40%] sm:h-[62%] lg:h-[70%]">
+      <motion.div style={{ y: castleY }} className="absolute inset-x-0 bottom-0 -z-10 h-[40%] sm:h-[62%] lg:right-[-4%] lg:left-auto lg:h-[70%] lg:w-[70%]">
         <Castle className="absolute inset-0 size-full opacity-95" />
       </motion.div>
 
       {/* Fog + readability scrim */}
       <div aria-hidden className="absolute inset-x-[-10%] bottom-0 -z-10 h-1/3 animate-fog bg-[radial-gradient(50%_60%_at_30%_100%,rgb(244_233_213/0.12),transparent_70%),radial-gradient(45%_55%_at_75%_100%,rgb(244_233_213/0.1),transparent_70%)]" />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-midnight/40 via-midnight/30 to-midnight lg:bg-gradient-to-r lg:from-midnight/85 lg:via-midnight/40 lg:to-transparent" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-midnight/40 via-midnight/30 to-midnight lg:bg-gradient-to-r lg:from-midnight/95 lg:via-midnight/55 lg:via-45% lg:to-transparent" />
       <Sparks className="-z-10" />
 
       <motion.div
-        style={{ y: contentY, opacity: fade }}
-        className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-4 pt-28 pb-24 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:pt-32"
+        style={isDesktop ? { y: contentY, opacity: fade } : undefined}
+        className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-4 pt-24 pb-24 sm:px-6 sm:pt-28 lg:grid-cols-[1.1fr_0.9fr] lg:pt-32"
       >
         <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
           <div className="mb-6 flex animate-fade-up flex-wrap items-center justify-center gap-3 lg:justify-start">
@@ -102,9 +120,9 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="relative order-1 mx-auto w-[min(72vw,24rem)] animate-fade-up [--d:150ms] lg:order-2 lg:w-full lg:max-w-[34rem]">
+        <div className="relative order-1 mx-auto w-[min(62vw,20rem)] animate-fade-up sm:w-[min(60vw,24rem)] [--d:150ms] lg:order-2 lg:w-full lg:max-w-[34rem]">
           <RuneRing className="absolute inset-[-12%] animate-spin-slow" />
-          <div aria-hidden className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgb(166_27_50/0.55),transparent_70%)]" />
+          <div aria-hidden className="absolute inset-[8%] rounded-full bg-[radial-gradient(circle,rgb(24_95_218/0.55),transparent_70%)]" />
           <HatAndWand />
           <div className="relative animate-float">
             <Image
@@ -114,7 +132,7 @@ export function Hero() {
               height={logos.event.height}
               sizes="(min-width: 1024px) 34rem, 78vw"
               preload
-              className="h-auto w-full drop-shadow-[0_20px_40px_rgb(0_0_0/0.6)]"
+              className="h-auto w-full drop-shadow-[0_20px_40px_rgb(0_0_0/0.6)] transition-[transform,filter] duration-700 ease-out hover:scale-105 hover:-rotate-2 hover:drop-shadow-[0_20px_50px_rgb(96_165_250/0.7)]"
             />
           </div>
         </div>

@@ -10,7 +10,7 @@ import { Flourish, RegisterButton } from "./ui";
 export function FinalCta() {
   return (
     <section id="register" aria-labelledby="register-title" className="relative isolate overflow-hidden py-28 sm:py-36">
-      <div aria-hidden className="absolute inset-0 -z-20 bg-[radial-gradient(60%_70%_at_50%_50%,#7f1026_0%,#360a16_55%,#140d12_100%)]" />
+      <div aria-hidden className="absolute inset-0 -z-20 bg-[radial-gradient(60%_70%_at_50%_50%,#175acd_0%,#0b2d66_55%,#172c50_100%)]" />
       <Sparks className="-z-10 opacity-70" />
       <Fireworks />
       <Bunting className="top-2" flags={20} />

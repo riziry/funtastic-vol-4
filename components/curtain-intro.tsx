@@ -13,7 +13,7 @@ const BURST = Array.from({ length: 18 }, (_, i) => {
     bx: `${Math.round(Math.cos(angle) * dist)}px`,
     by: `${Math.round(Math.sin(angle) * dist)}px`,
     size: 10 + (i % 4) * 5,
-    color: i % 3 === 0 ? "#fff6dc" : i % 3 === 1 ? "#ecd59c" : "#f08a9b",
+    color: i % 3 === 0 ? "#fff6dc" : i % 3 === 1 ? "#ecd59c" : "#88b9f2",
   };
 });
 
@@ -45,8 +45,8 @@ export function CurtainIntro() {
       <svg viewBox="0 0 1440 140" preserveAspectRatio="none" className="curtain-valance">
         <defs>
           <linearGradient id="valance-g" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stopColor="#3a0612" />
-            <stop offset="1" stopColor="#8c1229" />
+            <stop offset="0" stopColor="#0b2c67" />
+            <stop offset="1" stopColor="#144fb6" />
           </linearGradient>
         </defs>
         <path

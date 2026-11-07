@@ -101,6 +101,31 @@ export function Corners({ className = "text-gold/70" }: { className?: string }) 
   );
 }
 
+/** Builds a closed path of `count` points alternating between two radii, centered at (cx, cy). */
+function radialPath(count: number, outer: number, inner: number, cx = 60, cy = 60, rotate = -Math.PI / 2) {
+  const pts = Array.from({ length: count * 2 }, (_, i) => {
+    const r = i % 2 === 0 ? outer : inner;
+    const a = rotate + (i * Math.PI) / count;
+    return `${(cx + r * Math.cos(a)).toFixed(2)} ${(cy + r * Math.sin(a)).toFixed(2)}`;
+  });
+  return `M${pts.join("L")}Z`;
+}
+
+/** Scalloped seal edge: smooth bumps evenly spaced around the center. */
+function scallopPath(count: number, radius: number, depth: number, cx = 60, cy = 60) {
+  const step = (2 * Math.PI) / count;
+  const at = (r: number, a: number) => `${(cx + r * Math.cos(a)).toFixed(2)} ${(cy + r * Math.sin(a)).toFixed(2)}`;
+  let d = `M${at(radius - depth, -Math.PI / 2)}`;
+  for (let i = 0; i < count; i++) {
+    const a0 = -Math.PI / 2 + i * step;
+    d += `Q${at(radius + depth, a0 + step / 2)} ${at(radius - depth, a0 + step)}`;
+  }
+  return `${d}Z`;
+}
+
+const SEAL_EDGE = scallopPath(18, 53, 4);
+const SEAL_STAR = radialPath(5, 27, 11);
+
 /** Original wax seal emblem: a star within a scalloped seal. */
 export function WaxSeal({ className = "", label = "F4" }: { className?: string; label?: string }) {
   const gradientId = useId();
@@ -108,19 +133,19 @@ export function WaxSeal({ className = "", label = "F4" }: { className?: string; 
     <svg viewBox="0 0 120 120" className={className} aria-hidden>
       <defs>
         <radialGradient id={gradientId} cx="40%" cy="35%" r="70%">
-          <stop offset="0" stopColor="#d23a52" />
-          <stop offset=".55" stopColor="#8c1229" />
-          <stop offset="1" stopColor="#4a0716" />
+          <stop offset="0" stopColor="#5189ec" />
+          <stop offset=".55" stopColor="#144fb6" />
+          <stop offset="1" stopColor="#0c367e" />
         </radialGradient>
       </defs>
       <path
         fill={`url(#${gradientId})`}
-        d="M60 4c6 0 8 6 13 7s10-3 14 1 1 10 4 14 10 4 11 10-4 8-4 14 6 9 4 14-9 5-11 10 1 11-4 14-9-1-14 1-7 7-13 7-8-6-13-7-10 3-14-1-1-10-4-14-10-4-11-10 4-8 4-14-6-9-4-14 9-5 11-10-1-11 4-14 9 1 14-1 7-7 13-7z"
+        d={SEAL_EDGE}
       />
       <circle cx="60" cy="60" r="36" fill="none" stroke="#f0b8a4" strokeOpacity=".45" strokeWidth="1.5" />
-      <circle cx="60" cy="60" r="31" fill="none" stroke="#2a0510" strokeOpacity=".5" strokeWidth="1" />
-      <path d="M60 33l5.5 14.5 15.5.8-12 9.8 4 15-13-8.4-13 8.4 4-15-12-9.8 15.5-.8z" fill="#f6c9b5" fillOpacity=".25" />
-      <text x="60" y="68" textAnchor="middle" fontFamily="var(--font-cinzel), serif" fontWeight="700" fontSize="22" fill="#fde1d0" fillOpacity=".9">
+      <circle cx="60" cy="60" r="31" fill="none" stroke="#143672" strokeOpacity=".5" strokeWidth="1" />
+      <path d={SEAL_STAR} fill="#f6c9b5" fillOpacity=".25" />
+      <text x="60" y="60" textAnchor="middle" dominantBaseline="central" fontFamily="var(--font-cinzel), serif" fontWeight="700" fontSize="22" fill="#fde1d0" fillOpacity=".9">
         {label}
       </text>
     </svg>

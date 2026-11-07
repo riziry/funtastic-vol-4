@@ -12,17 +12,17 @@ export function TopHat({ className = "", style }: IconProps) {
     <svg aria-hidden viewBox="0 0 120 110" className={className} style={style}>
       <defs>
         <linearGradient id={gid} x1="0" x2="1">
-          <stop offset="0" stopColor="#0d080b" />
-          <stop offset=".45" stopColor="#3a2a33" />
-          <stop offset=".6" stopColor="#1c1217" />
-          <stop offset="1" stopColor="#0d080b" />
+          <stop offset="0" stopColor="#11213c" />
+          <stop offset=".45" stopColor="#114195" />
+          <stop offset=".6" stopColor="#1e3866" />
+          <stop offset="1" stopColor="#11213c" />
         </linearGradient>
       </defs>
-      <ellipse cx="60" cy="92" rx="54" ry="13" fill="#0d080b" />
-      <ellipse cx="60" cy="89" rx="50" ry="10" fill="#241820" />
+      <ellipse cx="60" cy="92" rx="54" ry="13" fill="#11213c" />
+      <ellipse cx="60" cy="89" rx="50" ry="10" fill="#25457e" />
       <path d="M33 90 L37 30 Q60 22 83 30 L87 90 Q60 98 33 90z" fill={`url(#${gid})`} />
-      <ellipse cx="60" cy="30" rx="23" ry="6.5" fill="#2e2028" stroke="#0d080b" strokeWidth="1.5" />
-      <path d="M35.6 68 Q60 74 84.4 68 L85.4 80 Q60 87 34.6 80z" fill="#a61b32" />
+      <ellipse cx="60" cy="30" rx="23" ry="6.5" fill="#0d3578" stroke="#11213c" strokeWidth="1.5" />
+      <path d="M35.6 68 Q60 74 84.4 68 L85.4 80 Q60 87 34.6 80z" fill="#185fda" />
       <path d="M35.6 68 Q60 74 84.4 68" fill="none" stroke="#ecd59c" strokeWidth="1.5" opacity=".8" />
       <rect x="52" y="69" width="16" height="13" rx="2" fill="none" stroke="#d6b46a" strokeWidth="3" />
       <path d="M44 36 L42 64" stroke="#fff" strokeOpacity=".15" strokeWidth="4" strokeLinecap="round" />
@@ -72,7 +72,7 @@ export function WingedLetter({ className = "", style }: IconProps) {
       </g>
       <rect x="44" y="30" width="52" height="36" rx="2" fill="#e9d8b6" stroke="#a8853f" strokeWidth="1.2" />
       <path d="M44 31 L70 52 L96 31" fill="none" stroke="#a8853f" strokeWidth="1.2" />
-      <circle cx="70" cy="52" r="6" fill="#a61b32" />
+      <circle cx="70" cy="52" r="6" fill="#185fda" />
       <path d="M70 48.5 l1.2 2.4 2.6.3-1.9 1.8.5 2.6-2.4-1.3-2.4 1.3.5-2.6-1.9-1.8 2.6-.3z" fill="#f6c9b5" opacity=".8" />
     </svg>
   );
@@ -105,24 +105,24 @@ export function Owl({ className = "", style }: IconProps) {
   return (
     <svg aria-hidden viewBox="0 0 160 100" className={className} style={style}>
       <g className="origin-[66px_50px] animate-flap">
-        <path d="M68 46 C52 18 26 8 4 14 C18 22 26 30 30 38 C20 40 14 46 12 54 C30 50 48 52 68 58z" fill="#2a1622" />
-        <path d="M64 48 C50 32 34 26 20 26 M62 52 C48 44 34 42 24 44" stroke="#4a2c3c" strokeWidth="2" fill="none" />
+        <path d="M68 46 C52 18 26 8 4 14 C18 22 26 30 30 38 C20 40 14 46 12 54 C30 50 48 52 68 58z" fill="#0b2d66" />
+        <path d="M64 48 C50 32 34 26 20 26 M62 52 C48 44 34 42 24 44" stroke="#134bac" strokeWidth="2" fill="none" />
       </g>
       <g className="origin-[94px_50px] animate-flap">
-        <path d="M92 46 C108 18 134 8 156 14 C142 22 134 30 130 38 C140 40 146 46 148 54 C130 50 112 52 92 58z" fill="#2a1622" />
-        <path d="M96 48 C110 32 126 26 140 26 M98 52 C112 44 126 42 136 44" stroke="#4a2c3c" strokeWidth="2" fill="none" />
+        <path d="M92 46 C108 18 134 8 156 14 C142 22 134 30 130 38 C140 40 146 46 148 54 C130 50 112 52 92 58z" fill="#0b2d66" />
+        <path d="M96 48 C110 32 126 26 140 26 M98 52 C112 44 126 42 136 44" stroke="#134bac" strokeWidth="2" fill="none" />
       </g>
-      <ellipse cx="80" cy="58" rx="18" ry="24" fill="#3a2030" />
-      <ellipse cx="80" cy="64" rx="11" ry="15" fill="#5a3546" />
-      <path d="M64 40 L68 28 L74 38z M96 40 L92 28 L86 38z" fill="#3a2030" />
+      <ellipse cx="80" cy="58" rx="18" ry="24" fill="#0f3b88" />
+      <ellipse cx="80" cy="64" rx="11" ry="15" fill="#175acd" />
+      <path d="M64 40 L68 28 L74 38z M96 40 L92 28 L86 38z" fill="#0f3b88" />
       <circle cx="73" cy="46" r="6" fill="#ffcf5a" />
       <circle cx="87" cy="46" r="6" fill="#ffcf5a" />
-      <circle cx="73" cy="46" r="2.6" fill="#140d12" />
-      <circle cx="87" cy="46" r="2.6" fill="#140d12" />
+      <circle cx="73" cy="46" r="2.6" fill="#172c50" />
+      <circle cx="87" cy="46" r="2.6" fill="#172c50" />
       <path d="M77 52 L80 57 L83 52z" fill="#d6b46a" />
       {/* tiny scroll in its talons */}
       <rect x="72" y="80" width="16" height="7" rx="3.5" fill="#e9d8b6" stroke="#a8853f" />
-      <circle cx="80" cy="83.5" r="2" fill="#a61b32" />
+      <circle cx="80" cy="83.5" r="2" fill="#185fda" />
     </svg>
   );
 }

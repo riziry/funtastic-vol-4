@@ -7,7 +7,7 @@ async function CopyrightYear() {
 }
 
 export function Footer() {
-  const links = [...navItems, { id: "payment", label: "Payment" }];
+  const links = navItems;
   return (
     <footer className="relative border-t border-gold/20 bg-wine">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.3fr_1fr_1fr]">
@@ -32,7 +32,7 @@ export function Footer() {
           <ul className="grid grid-cols-2 gap-x-6 gap-y-2.5">
             {links.map((l) => (
               <li key={l.id}>
-                <a href={`#${l.id}`} className="text-ivory/75 transition-colors hover:text-gold-light">
+                <a href={`#${l.id}`} className="link-line text-ivory/75 transition-colors hover:text-gold-light">
                   {l.label}
                 </a>
               </li>
@@ -55,7 +55,7 @@ export function Footer() {
             {event.venue.address}
           </a>
           <div className="mt-5 flex flex-col items-start gap-3">
-            <a href="#contact" className="text-ivory/75 underline-offset-4 hover:text-gold-light hover:underline">
+            <a href="#contact" className="link-line text-ivory/75 transition-colors hover:text-gold-light">
               Contact the organizers
             </a>
             <a href={REGISTRATION_URL} target="_blank" rel="noopener noreferrer" data-burst className="btn btn-primary min-h-11 px-5 py-2 text-sm">

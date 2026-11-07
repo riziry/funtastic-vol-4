@@ -7,8 +7,8 @@ import { Corners, Flourish, SectionHeading, WaxSeal } from "./ui";
 
 export function About() {
   return (
-    <section id="about" aria-labelledby="about-title" className="relative overflow-hidden py-24 sm:py-32">
-      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_30%,rgb(127_16_38/0.25),transparent_70%)]" />
+    <section id="about" aria-labelledby="about-title" className="relative overflow-hidden py-20 sm:py-32">
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_30%,rgb(23_90_205/0.25),transparent_70%)]" />
       <Bunting className="top-6" />
       <FloatingMagic
         items={[
@@ -74,9 +74,9 @@ export function About() {
                 {welcomeLetter.highlights.map((h) => (
                   <li
                     key={h}
-                    className="inline-flex items-center gap-2 rounded-full border border-crimson/30 bg-ivory/50 px-4 py-1.5 text-sm font-semibold text-crimson"
+                    className="group inline-flex items-center gap-2 rounded-full border border-crimson/30 bg-ivory/50 px-4 py-1.5 text-sm font-semibold text-crimson transition-[transform,background-color,color,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-crimson hover:text-ivory hover:shadow-[0_8px_18px_-8px_rgb(24_95_218/0.8)]"
                   >
-                    <Sparkles aria-hidden className="size-3.5" />
+                    <Sparkles aria-hidden className="wiggle size-3.5" />
                     {h}
                   </li>
                 ))}
@@ -92,7 +92,7 @@ export function About() {
               width={logos.mascot.width}
               height={logos.mascot.height}
               sizes="(min-width: 1024px) 17rem, 15rem"
-              className="relative h-auto w-full animate-bob drop-shadow-[0_20px_30px_rgb(0_0_0/0.6)] [animation-duration:5s]"
+              className="relative h-auto w-full animate-bob drop-shadow-[0_20px_30px_rgb(0_0_0/0.6)] transition-[filter] duration-500 [animation-duration:5s] hover:drop-shadow-[0_20px_40px_rgb(96_165_250/0.65)]"
             />
             <p className="mt-3 text-center font-serif text-lg text-gold-light italic">“Welcome, one and all.”</p>
           </Reveal>
